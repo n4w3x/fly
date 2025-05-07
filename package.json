@@ -1,28 +1,50 @@
 {
-  "name": "my-app",
+  "name": "avi",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.27.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "@vercel/node": "^2.15.10",
+    "@vercel/remix-builder": "^5.4.3",
+    "@vercel/static-build": "^1.4.0",
+    "antd": "^5.24.9",
+    "browserify-zlib": "^0.2.0",
+    "date-fns": "^4.1.0",
+    "esbuild": "^0.25.4",
+    "got": "^14.4.7",
+    "https-browserify": "^1.0.0",
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.3.2",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "path-to-regexp": "^8.2.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.0.0",
+    "react-detect-offline": "^2.4.5",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.5.3",
     "react-scripts": "5.0.1",
+    "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0",
+    "semver": "^7.7.1",
+    "stream-http": "^3.2.0",
+    "tar": "^7.4.3",
+    "undici": "^7.8.0",
+    "url": "^0.11.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
@@ -34,6 +56,38 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
+    "@eslint/js": "^9.26.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "assert": "^2.1.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.1",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-html": "^8.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^16.0.0",
+    "husky": "^8.0.3",
+    "is-ci": "^4.1.0",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.5.3",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.5",
+    "vercel": "^41.7.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "npm run lint -- --fix",
+      "prettier --write"
     ]
   }
 }
