@@ -10,10 +10,29 @@ import styles from "./Tickets.module.css"
 
 const Tickets = ({ tickets, sort, filter, error, isLoading, getTicketsTC }) => {
   const [count, setCount] = useState(5)
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
 
   useEffect(() => {
-    getTicketsTC()
-  }, [])
+    let stopped = false
+
+    const loadTickets = async () => {
+      await getTicketsTC()
+
+      if (!stopped && !sessionStorage.getItem("searchId")) {
+        return
+      }
+
+      if (!stopped) {
+        setTimeout(loadTickets, 500)
+      }
+    }
+
+    loadTickets()
+
+    return () => {
+      stopped = true
+    }
+  }, [getTicketsTC])
 
   const sortingValue = sort.filter((el) => el.checked)[0].value
 
@@ -103,7 +122,13 @@ const Tickets = ({ tickets, sort, filter, error, isLoading, getTicketsTC }) => {
     </p>
   ) : null
 
-  const spinner = isLoading && !error ? <Spinner fontSize={60} /> : null
+  const spinner =
+    isLoading && !error && ticketsList.length > 0 ? (
+      <div className={styles["spinner-container"]}>
+        <Spinner fontSize={60} />
+        <p className={styles["loading-text"]}>Загрузка...</p>
+      </div>
+    ) : null
 
   return (
     <>

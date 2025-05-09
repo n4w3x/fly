@@ -8,7 +8,7 @@ const apiReducer = (state = initialState, action) => {
   switch (action.type) {
     case "getTickets":
       return {
-        ...state,
+        ...state.tickets,
         tickets: action.payload,
       }
     case "error":
