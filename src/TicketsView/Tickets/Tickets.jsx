@@ -10,7 +10,7 @@ import styles from "./Tickets.module.css"
 
 const Tickets = ({ tickets, sort, filter, error, isLoading, getTicketsTC }) => {
   const [count, setCount] = useState(5)
-  const [isFirstLoad, setIsFirstLoad] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     let stopped = false
@@ -19,6 +19,7 @@ const Tickets = ({ tickets, sort, filter, error, isLoading, getTicketsTC }) => {
       await getTicketsTC()
 
       if (!stopped && !sessionStorage.getItem("searchId")) {
+        setLoading(false)
         return
       }
 
@@ -123,7 +124,7 @@ const Tickets = ({ tickets, sort, filter, error, isLoading, getTicketsTC }) => {
   ) : null
 
   const spinner =
-    isLoading && !error && ticketsList.length > 0 ? (
+    (isLoading || loading) && !error && ticketsList.length > 0 ? (
       <div className={styles["spinner-container"]}>
         <Spinner fontSize={60} />
         <p className={styles["loading-text"]}>Загрузка...</p>
@@ -132,10 +133,11 @@ const Tickets = ({ tickets, sort, filter, error, isLoading, getTicketsTC }) => {
 
   return (
     <>
+      {spinner}
+      {}
       {ticketView}
       {noMatchView}
       {errorView}
-      {spinner}
     </>
   )
 }
