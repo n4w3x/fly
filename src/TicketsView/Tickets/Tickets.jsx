@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import ShowMore from "../ShowMore/ShowMore"
 import Spinner from "../../UI/Spinner/Spinner"
-import { getTicketsTC } from "../../actions/apiActions"
+import { getTicketsTC } from "../../store/apiSlice"
 
 import Ticket from "./Ticket/Ticket"
 import styles from "./Tickets.module.css"
@@ -144,11 +144,11 @@ const Tickets = ({ tickets, sort, filter, error, isLoading, getTicketsTC }) => {
 
 const mapStateToProps = (state) => {
   return {
-    tickets: state.apiReducer.tickets,
-    sort: state.sortReducer,
-    filter: state.filterReducer,
-    error: state.apiReducer.error,
-    isLoading: state.apiReducer.isLoading,
+    tickets: state.api.tickets,
+    sort: state.sort,
+    filter: state.filter,
+    error: state.api.error,
+    isLoading: state.api.isLoading,
   }
 }
 

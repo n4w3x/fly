@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit"
+
 const initialState = [
   { label: "Все", value: "all", checked: false },
   { label: "Без пересадок", value: "direct", checked: true },
@@ -6,21 +8,28 @@ const initialState = [
   { label: "3 пересадки", value: "three-stop", checked: false },
 ]
 
-const filterReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "all":
+const filterSlice = createSlice({
+  name: "filter",
+  initialState,
+  reducers: {
+    toggleAll: (state, action) => {
       return state.map((el) =>
-        el.checked !== action.checked
+        el.checked !== action.payload
           ? { ...el, checked: !el.checked }
           : { ...el }
       )
-    case "filter":
-      return state.map((el) =>
-        el.value === action.value ? { ...el, checked: !el.checked } : { ...el }
-      )
-    default:
-      return state
-  }
-}
+    },
 
-export default filterReducer
+    toggleFilter: (state, action) => {
+      return state.map((el) =>
+        el.value === action.payload
+          ? { ...el, checked: !el.checked }
+          : { ...el }
+      )
+    },
+  },
+})
+
+export const { toggleAll, toggleFilter } = filterSlice.actions
+
+export default filterSlice.reducer

@@ -1,23 +1,26 @@
 import React from "react"
-import { connect } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
-import { sortingAC } from "../../actions/sortActions"
+import { sorting } from "../../store/sortSlice"
 
 import styles from "./Tabs.module.css"
 
-const Tabs = ({ sortValues, sortingAC }) => {
+const Tabs = () => {
+  const dispatch = useDispatch()
+  const sortValues = useSelector((state) => state.sort)
+
+  const handleTabClick = (value) => {
+    dispatch(sorting(value))
+  }
+
   return (
     <div className={styles.wrapper}>
       {sortValues.map((item, id) => {
         return (
           <div
             key={id}
-            className={`${styles.tab} ${
-              item.checked ? styles["tab-current"] : ""
-            }`}
-            onClick={
-              item.checked ? () => {} : () => sortingAC("sort", item.value)
-            }
+            className={`${styles.tab} ${item.checked ? styles["tab-current"] : ""}`}
+            onClick={item.checked ? () => {} : () => handleTabClick(item.value)}
           >
             <span>{item.text}</span>
           </div>
@@ -27,6 +30,4 @@ const Tabs = ({ sortValues, sortingAC }) => {
   )
 }
 
-const mapStateToProps = (state) => ({ sortValues: state.sortReducer })
-
-export default connect(mapStateToProps, { sortingAC })(Tabs)
+export default Tabs
